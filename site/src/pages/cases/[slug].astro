@@ -1,13 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import MermaidDiagrams from '../../components/MermaidDiagrams.astro';
 import { listCaseSlugs, getCase, BOUNDARY_NOTICE } from '../../lib/content';
+import { caseDiagrams } from '../../data/diagrams';
 
 export function getStaticPaths() {
   return listCaseSlugs().map((slug) => ({ params: { slug } }));
 }
 
-const doc = getCase(Astro.params.slug!);
-if (!doc) throw new Error(`Unknown case: ${Astro.params.slug}`);
+const slug = Astro.params.slug!;
+const doc = getCase(slug);
+if (!doc) throw new Error(`Unknown case: ${slug}`);
+const diagrams = caseDiagrams[slug] ?? [];
 const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title={`${doc.title} · Engineering Showcase`} description={doc.excerpt}>
@@ -18,5 +22,6 @@ const base = import.meta.env.BASE_URL;
     </div>
     <p class="notice" style="margin-top: 1.25rem;">{BOUNDARY_NOTICE}</p>
     <article class="prose" set:html={doc.html} />
+    <MermaidDiagrams diagrams={diagrams} />
   </section>
 </BaseLayout>
