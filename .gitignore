@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .venv/
 docs/WORKLOG.md
+site/node_modules/
+site/dist/
+site/.astro/

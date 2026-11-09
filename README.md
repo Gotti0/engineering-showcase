@@ -1,8 +1,14 @@
 # Engineering Showcase — Gotti0
 
+> **문제를 분리하고 검증으로 막는 엔지니어**
+>
+> 사이트: https://gotti0.github.io/engineering-showcase/
+
 LLM 문서 처리, 금융 데이터 검증, 주문 상태 관리, AI 개발 협업 경험을 정리했습니다.
 개인 프로젝트와 공동 개발에서 문제를 어떻게 분리하고 검증했는지를 설명합니다.
 개발 과정에 AI 코딩 에이전트를 활용했으며, 이 저장소의 문서와 예제도 AI와 함께 작성했습니다.
+직무별 3분 읽기 경로는 GitHub Pages(`site/`)에서 고를 수 있습니다.
+
 
 ## 사례
 
