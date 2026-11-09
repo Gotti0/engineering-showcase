@@ -4,8 +4,6 @@ import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
 
 const REPO_ROOT = join(fileURLToPath(new URL('../../..', import.meta.url)));
-const GITHUB_BLOB = 'https://github.com/Gotti0/engineering-showcase/blob/main';
-
 
 export type Doc = {
   slug: string;
@@ -31,41 +29,26 @@ function excerptFromMd(md: string): string {
   return '';
 }
 
-/** 저장소 상대 md 링크를 사이트 라우트로, 코드 파일은 GitHub blob으로 바꾼다. */
-export function rewriteMarkdownLinks(md: string): string {
-  return md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_full, label: string, href: string) => {
-    const clean = href.trim();
-    if (/^https?:\/\//i.test(clean) || clean.startsWith('mailto:')) {
-      return `[${label}](${clean})`;
-    }
+/** 마크다운 링크·자동 링크를 라벨/평문으로만 남긴다. 하이퍼링크 없음. */
+export function stripMarkdownLinks(md: string): string {
+  let out = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_full, label: string) => label);
+  out = out.replace(/<(https?:\/\/[^>]+)>/g, '$1');
+  return out;
+}
 
-    const pathOnly = clean.replace(/^\.\.\//, '').replace(/^\.\//, '');
-
-    if (pathOnly.startsWith('cases/') && pathOnly.endsWith('.md')) {
-      const slug = basename(pathOnly, '.md');
-      return `[${label}](${import.meta.env.BASE_URL}cases/${slug}/)`;
-    }
-    if (pathOnly === 'evidence/manifest.md' || pathOnly.endsWith('/evidence/manifest.md')) {
-      return `[${label}](${import.meta.env.BASE_URL}evidence/)`;
-    }
-    if (pathOnly === 'examples/README.md' || pathOnly.endsWith('/examples/README.md')) {
-      return `[${label}](${import.meta.env.BASE_URL}examples/)`;
-    }
-    if (/\.(py|ts|js|json|png|jpg|svg)$/i.test(pathOnly)) {
-      return `[${label}](${GITHUB_BLOB}/${pathOnly.replace(/\\/g, '/')})`;
-    }
-    if (pathOnly.endsWith('.md')) {
-      return `[${label}](${GITHUB_BLOB}/${pathOnly.replace(/\\/g, '/')})`;
-    }
-    return `[${label}](${clean})`;
-  });
+/** 렌더 HTML에서 앵커를 벗겨 텍스트만 남긴다. */
+export function stripHtmlAnchors(html: string): string {
+  return html
+    .replace(/<a\s[^>]*>([\s\S]*?)<\/a>/gi, '$1')
+    .replace(/\shref="[^"]*"/gi, '');
 }
 
 function loadMarkdownFile(absPath: string, slug: string): Doc {
   const raw = readFileSync(absPath, 'utf8');
   const title = extractTitle(raw, slug);
-  const rewritten = rewriteMarkdownLinks(raw);
-  const html = marked.parse(rewritten, { async: false }) as string;
+  const stripped = stripMarkdownLinks(raw);
+  const parsed = marked.parse(stripped, { async: false }) as string;
+  const html = stripHtmlAnchors(parsed);
   return { slug, title, html, excerpt: excerptFromMd(raw) };
 }
 
@@ -103,4 +86,3 @@ export function getExamples(): Doc {
 
 export const BOUNDARY_NOTICE =
   '합성 예제는 개념 설명용입니다. 비공개 레포는 면접에서 열람하며 Pages에 코드를 올리지 않습니다. 지원 자료의 읽기 안내이며 해당 기업 소속·승인을 의미하지 않습니다.';
-

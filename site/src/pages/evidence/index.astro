@@ -4,9 +4,17 @@ import { getEvidence, BOUNDARY_NOTICE } from '../../lib/content';
 
 const doc = getEvidence();
 ---
-<BaseLayout title="근거와 한계 · Engineering Showcase" description={BOUNDARY_NOTICE}>
-  <section class="section" style="padding-top: var(--hero-pad);">
-    <p class="notice">{BOUNDARY_NOTICE}</p>
-    <article class="prose" set:html={doc.html} />
-  </section>
+<BaseLayout title="근거와 한계 · Engineering Showcase" description={BOUNDARY_NOTICE} slideDeck={true}>
+  <div class="deck">
+    <section class="slide">
+      <header class="slide-header">
+        <div>
+          <p class="slide-kicker">Evidence</p>
+          <h2>근거와 한계</h2>
+        </div>
+      </header>
+      <p class="notice slide-notice">{BOUNDARY_NOTICE}</p>
+      <article class="prose" set:html={doc.html} />
+    </section>
+  </div>
 </BaseLayout>
