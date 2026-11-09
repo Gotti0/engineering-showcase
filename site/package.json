@@ -9,8 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "share-urls": "node scripts/print-share-urls.mjs"
   },
+
   "dependencies": {
     "astro": "^5.18.2",
     "marked": "^18.1.3"

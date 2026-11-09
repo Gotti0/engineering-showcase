@@ -1,29 +1,31 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { audiences, getAudience } from '../../data/audiences';
+import { audiences, getAudienceByToken } from '../../data/audiences';
 import { getCase, BOUNDARY_NOTICE } from '../../lib/content';
 
 export function getStaticPaths() {
-  return audiences.map((a) => ({ params: { slug: a.slug } }));
+  return audiences.map((a) => ({ params: { token: a.token } }));
 }
 
-const { slug } = Astro.params;
-const audience = getAudience(slug!);
+const audience = getAudienceByToken(Astro.params.token!);
 if (!audience) {
-  throw new Error(`Unknown audience: ${slug}`);
+  throw new Error('Unknown path');
 }
 
 const cases = audience.caseSlugs.map((s) => getCase(s)).filter(Boolean);
 const base = import.meta.env.BASE_URL;
 const title = `${audience.role} — ${audience.company}`;
 ---
-<BaseLayout title={`${title} · Engineering Showcase`} description={audience.blurb}>
+<BaseLayout
+  title={`${title} · Engineering Showcase`}
+  description={audience.blurb}
+  noindex={true}
+>
   <section class="hero" style="padding-bottom: 1.5rem;">
     <p class="hero-brand">3분 읽기 경로</p>
     <h1 style="max-width: 18ch; font-size: clamp(2rem, 5vw, 3.2rem);">{title}</h1>
     <p class="hero-lead">{audience.blurb}</p>
     <div class="meta-row">
-      <a href={base}>← 모든 경로</a>
       <a href={`${base}evidence/`}>근거와 한계</a>
       <a href={`${base}examples/`}>실행 예제</a>
     </div>
@@ -52,4 +54,3 @@ const title = `${audience.role} — ${audience.company}`;
     </p>
   </section>
 </BaseLayout>
-
