@@ -7,6 +7,8 @@
 ## 구현 구조
 
 유한 상태 머신과 asyncio.Lock으로 주문 상태 전이를 검사했습니다. 32비트 증권사 API와 64비트 분석 환경은 WebSocket 브릿지로 분리했습니다. 다른 시스템에서는 추천 경로의 조용한 실패를 경고 이벤트와 주문 한도로 드러냈습니다. FastAPI 제어 API와 Docker·docker-compose 배포도 다뤘습니다.
+[구조도·개념 ERD](../assets/diagrams/order-and-operation-safety.md)는 FSM·브릿지·주문 이벤트 논리 모델입니다.
+
 
 ## 근거와 한계
 

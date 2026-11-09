@@ -7,7 +7,8 @@
 ## 구현 구조
 
 Paperclip에서 CEO 직속 QA와 개발 라인을 구성해 운영했습니다. Claude·Codex와 외부 모델을 역할에 따라 활용하고 Git Worktree로 작업 공간을 나눴습니다. MCP 도구를 연동하고 PR과 WORKLOG로 변경 근거를 남겼습니다.
-[역할 흐름도](../assets/diagrams/workflow.md)는 작성자의 설명을 바탕으로 새로 그렸습니다.
+[역할 흐름도](../assets/diagrams/workflow.md)와 [구조도·개념 ERD](../assets/diagrams/agent-development-workflow.md)는 작성자 설명을 바탕으로 다시 그린 것입니다.
+
 
 ## 근거와 한계
 

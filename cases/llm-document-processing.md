@@ -10,6 +10,9 @@
 - Neo Batch Translator: Gemini API 청킹·용어집 주입·JSON 메타데이터 기반 이어하기. 관련 번역 문맥을 제공하는 translation memory.
 - 학사 FAQ 과제: 임베딩의 코사인 유사도 검색, 검색 문맥 주입, 직접 질의와 RAG 질의 비교 코드.
 
+[구조도·개념 ERD](../assets/diagrams/llm-document-processing.md)는 OCR·청킹·검색 단위를 설명합니다.
+
+
 ## 근거와 한계
 
 공개 자료는 [OCR 앱](https://github.com/Gotti0/Google-Vision-OCR)과 [번역기](https://github.com/Gotti0/batch_translator_with_gemini_ko)입니다. 링크의 공개 상태는 2026-10-02 확인했습니다. 학사 과제의 원본은 포함하지 않습니다.

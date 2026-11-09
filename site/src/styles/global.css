@@ -551,6 +551,50 @@ span.brand {
   white-space: nowrap;
 }
 
+.diagram-section {
+  margin: 2.5rem 0 1rem;
+  max-width: 52rem;
+}
+
+.diagram-heading {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+
+.diagram-note {
+  margin: 0 0 1.25rem;
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+}
+
+.diagram-figure {
+  margin: 0 0 1.75rem;
+  padding: 1rem 0 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.diagram-figure figcaption {
+  display: grid;
+  gap: 0.25rem;
+  margin-bottom: 0.85rem;
+}
+
+.diagram-figure figcaption span {
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+}
+
+.diagram-figure .mermaid {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  background: rgba(255, 252, 247, 0.7);
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+
 .closing {
   margin-bottom: 1rem;
 }
