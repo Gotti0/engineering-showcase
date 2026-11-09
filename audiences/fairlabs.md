@@ -1,9 +1,9 @@
-# 퀀트 개발 — 페어랩스 지원
+# 백엔드·데이터 신뢰성 — 페어랩스 지원
 
-금융 데이터 정제·시점·단위 검증과 변경 근거를 봅니다. 검증된 알파나 인덱스 산출 실적으로 소개하지 않습니다.
+입력 검증·격리·재실행과 운영 안전 경계를 먼저 봅니다. 검증된 알파 실적으로 소개하지 않습니다.
 
 1. [금융 데이터 검증](../cases/financial-data-validation.md)
-2. [에이전트 개발 워크플로우](../cases/agent-development-workflow.md)
+2. [주문·운영 안전성](../cases/order-and-operation-safety.md)
 
 [근거와 한계](../evidence/manifest.md) · [실행 예제](../examples/README.md)
 

@@ -1,9 +1,9 @@
-# AI 제품 개발 — 블록에스 지원
+# 백엔드·운영 안전 — 블록에스 지원
 
-에이전트 작업 분리와 실패 가시성·복구를 봅니다. 기업 실무·PQC 경험과는 구분합니다.
+상태 머신·브릿지·실패 노출을 먼저 봅니다. 에이전트 제품 실무와는 구분합니다.
 
-1. [에이전트 개발 워크플로우](../cases/agent-development-workflow.md)
-2. [주문·운영 안전성](../cases/order-and-operation-safety.md)
+1. [주문·운영 안전성](../cases/order-and-operation-safety.md)
+2. [금융 데이터 검증](../cases/financial-data-validation.md)
 
 [근거와 한계](../evidence/manifest.md) · [실행 예제](../examples/README.md)
 

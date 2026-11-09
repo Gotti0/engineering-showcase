@@ -1,35 +1,31 @@
 # Engineering Showcase — Gotti0
 
-> **문제를 분리하고 검증으로 막는 엔지니어**
+> **문제를 분리하고 검증으로 막는 엔지니어** (Backend / Platform)
 >
 > 사이트: https://gotti0.github.io/engineering-showcase/
 
-LLM 문서 처리, 금융 데이터 검증, 주문 상태 관리, AI 개발 협업 경험을 정리했습니다.
-개인 프로젝트와 공동 개발에서 문제를 어떻게 분리하고 검증했는지를 설명합니다.
-개발 과정에 AI 코딩 에이전트를 활용했으며, 이 저장소의 문서와 예제도 AI와 함께 작성했습니다.
+금융 도메인에서 쌓은 **백엔드·플랫폼** 경험을 정리했습니다.
+잘못된 상태·데이터가 다음 단계로 넘어가지 않게 막는 설계(FSM, 브릿지, 쓰기 시점 검증)를 앞에 둡니다.
+문서 처리·에이전트 운영은 보조 경험입니다.
 
 직무별 3분 읽기 경로는 지원 담당자에게 **개별 공유 링크**로만 전달합니다.
-공개 랜딩에는 회사·직무 경로 목록을 두지 않습니다(UX 격리. 퍼블릭 레포 열람까지 막지는 않음).
+공개 랜딩에는 회사 목록을 두지 않습니다(UX 격리).
 
-## 사례
+## 사례 (백엔드 우선)
 
 | 사례 | 주요 내용 |
 | --- | --- |
-| [LLM 문서 처리](cases/llm-document-processing.md) | OCR, FAQ RAG, 번역 청킹·이어하기 |
-| [금융 데이터 검증](cases/financial-data-validation.md) | 가격 관계식, 재실행, DSR 단위 |
 | [주문·운영 안전성](cases/order-and-operation-safety.md) | FSM, 환경 브릿지, 실패 가시성 |
-| [에이전트 개발 워크플로우](cases/agent-development-workflow.md) | 역할 분리, Worktree, 기록·PR |
+| [금융 데이터 검증](cases/financial-data-validation.md) | 관계식 검사, 격리, 재실행 멱등 |
+| [LLM 문서 처리](cases/llm-document-processing.md) | 청킹·이어하기 잡 (보조) |
+| [에이전트 개발 워크플로우](cases/agent-development-workflow.md) | 역할 분리·기록 (개발 방식) |
 
-## 재현과 근거
+## 근거
 
-[일반화 예제](examples/README.md)는 Python 표준 라이브러리만 사용합니다.
-실제 프로젝트 코드를 옮긴 것이 아니라 합성 입력으로 개념을 설명하는 별도 구현입니다.
-[근거 목록](evidence/manifest.md)은 공개 코드, 과거 검증 기록, 본인 설명과 이 저장소의 실행 결과를 구분합니다.
-현재 운영 상태나 수익·정확도·비용 개선 성과를 새로 검증한 저장소는 아닙니다.
+[근거 목록](evidence/manifest.md)은 공개 코드(PUB), 비공개 레포 면접 열람(PRIV), 사례 설명(CASE), 합성 예제를 구분합니다.
+[일반화 예제](examples/README.md)는 개념 재현용이며 원본 시스템 전체를 대신하지 않습니다.
 
 ## 사이트
-
-정적 사이트 소스는 [`site/`](site/)입니다. 공유 URL 목록(로컬):
 
 ```bash
 cd site && npm run share-urls
