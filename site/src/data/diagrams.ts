@@ -198,16 +198,15 @@ export const caseDiagrams: Record<string, DiagramBlock[]> = {
 };
 
 export const landingOverview: DiagramBlock = {
-  title: '공개 쇼케이스 전체 흐름',
-  caption: '프로젝트 경험을 네 가지 공개 사례로 묶은 읽기 지도입니다. 회사별 경로는 별도 공유 링크입니다.',
+  title: '백엔드 채용용 읽기 흐름',
+  caption: '주문·브릿지·데이터 검증을 앞에 두고, 문서 잡은 보조로 둡니다. 회사별 경로는 별도 공유 링크입니다.',
   mermaid: `flowchart TB
-  Hero[포지셔닝·소개] --> Bridge[프로젝트 → 사례 브릿지]
-  Bridge --> Fin[금융 데이터 검증]
-  Bridge --> Ord[주문·운영 안전성]
-  Bridge --> Doc[LLM 문서 처리]
-  Bridge --> Agent[에이전트 워크플로우]
-  Fin --> Evidence[근거·합성 예제]
-  Ord --> Evidence
-  Doc --> Evidence
-  Agent --> Evidence`,
+  Hero[백엔드 포지셔닝] --> Core[핵심 사례]
+  Core --> Ord[주문·운영 안전성]
+  Core --> Fin[금융 데이터 검증]
+  Ord --> Evidence[PUB + PRIV 근거]
+  Fin --> Evidence
+  Core --> Doc[문서 잡 서비스 보조]
+  Doc --> Evidence`,
 };
+

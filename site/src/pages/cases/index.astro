@@ -1,15 +1,24 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getAllCases } from '../../lib/content';
+import { getCase } from '../../lib/content';
 
-const cases = getAllCases();
+/** 백엔드 채용 기본 읽기 순서 */
+const orderedSlugs = [
+  'order-and-operation-safety',
+  'financial-data-validation',
+  'llm-document-processing',
+  'agent-development-workflow',
+];
+const cases = orderedSlugs.map((slug) => getCase(slug)).filter(Boolean);
 const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="사례 · Engineering Showcase">
   <section class="hero" style="padding-bottom: 1.25rem;">
     <p class="hero-brand">Cases</p>
-    <h1 style="max-width: 12ch; font-size: clamp(2rem, 5vw, 3.2rem);">공개 사례</h1>
-    <p class="hero-lead">문제를 어떻게 분리하고 무엇으로 검증했는지 정리한 네 가지 사례입니다.</p>
+    <h1 style="max-width: 14ch; font-size: clamp(2rem, 5vw, 3.2rem);">백엔드 관점 사례</h1>
+    <p class="hero-lead">
+      주문·브릿지·데이터 검증을 앞에 두고, 문서 잡·에이전트 운영은 보조로 둡니다.
+    </p>
   </section>
 
   <section class="section" style="padding-top: 0;">
@@ -17,9 +26,9 @@ const base = import.meta.env.BASE_URL;
       {
         cases.map((c) => (
           <li>
-            <a href={`${base}cases/${c.slug}/`}>
-              <span class="persona-role">{c.title}</span>
-              <span class="persona-blurb">{c.excerpt}</span>
+            <a href={`${base}cases/${c!.slug}/`}>
+              <span class="persona-role">{c!.title}</span>
+              <span class="persona-blurb">{c!.excerpt}</span>
               <span class="persona-go">읽기 →</span>
             </a>
           </li>

@@ -21,9 +21,10 @@ const photoSrc = `${base}${profile.photo}`;
     <p class="hero-brand">Engineering Showcase · {profile.name}</p>
     <h1>문제를 분리하고 검증으로 막는 엔지니어</h1>
     <p class="hero-lead">
-      데이터 무결성과 시스템 안정성을 우선합니다. LLM 문서 처리, 금융 데이터 검증,
-      주문 상태 관리, AI 개발 협업 사례를 공개 가능한 근거와 합성 예제와 함께 정리했습니다.
+      백엔드·플랫폼 관점에서, 잘못된 상태와 데이터가 다음 단계로 넘어가지 않게 막는 설계를 우선합니다.
+      주문 FSM·환경 브릿지·쓰기 시점 검증 사례를 공개 근거·비공개 레포 인용·합성 예제와 함께 정리했습니다.
     </p>
+
     <div class="hero-actions">
       <a class="btn" href="#about">소개 읽기</a>
       <a class="btn btn-ghost" href={`${base}cases/`}>사례 보기</a>
@@ -34,7 +35,8 @@ const photoSrc = `${base}${profile.photo}`;
 
   <section class="section" id="about">
     <p class="section-kicker">Profile</p>
-    <h2>경험과 무결성을 기준으로 성장하는 퀀트·시스템 엔지니어입니다.</h2>
+    <h2>금융 도메인을 다룬 백엔드·플랫폼 엔지니어로 성장합니다.</h2>
+
     <div class="about-grid">
       <aside class="about-identity">
         <img class="about-photo" src={photoSrc} alt={`${profile.name} 프로필`} width="480" height="640" />
@@ -106,11 +108,12 @@ const photoSrc = `${base}${profile.photo}`;
 
   <section class="section" id="projects">
     <p class="section-kicker">Projects → Cases</p>
-    <h2>프로젝트 경험은 공개 사례로 읽어 주세요.</h2>
+    <h2>백엔드 신호 강한 프로젝트부터 공개 사례로 연결합니다.</h2>
     <p class="section-lead">
-      원본 시스템을 통째로 옮기지 않았습니다. 문제를 어떻게 분리·검증했는지는 아래 공개 사례와
-      <a href={`${base}evidence/`}>근거 목록</a>을 기준으로 확인합니다.
+      코드 전문은 Pages에 올리지 않습니다. 공개 사례·
+      <a href={`${base}evidence/`}>PUB/PRIV 근거</a>·면접 스크린공유로 범위를 확인합니다.
     </p>
+
     <MermaidDiagrams diagrams={[landingOverview]} />
     <ul class="bridge-list">
       {
