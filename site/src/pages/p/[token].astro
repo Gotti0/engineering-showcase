@@ -13,45 +13,44 @@ if (!audience) {
 }
 
 const cases = audience.caseSlugs.map((s) => getCase(s)).filter(Boolean);
-const base = import.meta.env.BASE_URL;
 const title = `${audience.role} — ${audience.company}`;
+const total = 1 + cases.length;
 ---
 <BaseLayout
   title={`${title} · Engineering Showcase`}
   description={audience.blurb}
   noindex={true}
   isolate={true}
+  slideDeck={true}
 >
-  <section class="hero" style="padding-bottom: 1.5rem;">
-    <p class="hero-brand">3분 읽기 경로</p>
-    <h1 style="max-width: 18ch; font-size: clamp(2rem, 5vw, 3.2rem);">{title}</h1>
-    <p class="hero-lead">{audience.blurb}</p>
-    <div class="meta-row">
-      <a href={`${base}evidence/`}>근거와 한계</a>
-      <a href={`${base}examples/`}>실행 예제</a>
-    </div>
-  </section>
+  <div class="deck" aria-label={`${audience.company} 읽기 경로 슬라이드`}>
+    <section class="slide slide-hero" data-slide="1">
+      <p class="slide-brand">3분 읽기 경로</p>
+      <h1 class="slide-hero-title" style="max-width: 18ch; font-size: clamp(2rem, 5vw, 3.2rem);">
+        {title}
+      </h1>
+      <p class="slide-hero-lead">{audience.blurb}</p>
+      <p class="notice slide-notice">{BOUNDARY_NOTICE}</p>
+      <p class="slide-page">{`1 / ${total}`}</p>
+    </section>
 
-  <p class="notice">{BOUNDARY_NOTICE}</p>
-
-  <section class="section" style="padding-top: 0;">
-    <h2>이 순서로 읽기</h2>
-    <ol class="path-steps">
-      {
-        cases.map((c) => (
-          <li>
+    {
+      cases.map((c, i) => (
+        <section class="slide" data-slide={String(i + 2)}>
+          <header class="slide-header">
             <div>
-              <a href={`${base}cases/${c!.slug}/`}>
-                <div class="path-title">{c!.title}</div>
-                <p class="path-excerpt">{c!.excerpt}</p>
-              </a>
+              <p class="slide-kicker">{`Path ${i + 1}`}</p>
+              <h2>{c!.title}</h2>
             </div>
-          </li>
-        ))
-      }
-    </ol>
-    <p class="section-lead" style="margin-top: 2rem;">
-      지원 자료의 읽기 안내이며 {audience.company}에 소속되거나 기업의 승인을 받은 자료가 아닙니다.
-    </p>
-  </section>
+            <span class="slide-page">{`${i + 2} / ${total}`}</span>
+          </header>
+          <p class="section-lead">{c!.excerpt}</p>
+          <article class="prose" set:html={c!.html} />
+          <p class="section-lead" style="margin-top: 1.5rem;">
+            지원 자료의 읽기 안내이며 {audience.company}에 소속되거나 기업의 승인을 받은 자료가 아닙니다.
+          </p>
+        </section>
+      ))
+    }
+  </div>
 </BaseLayout>

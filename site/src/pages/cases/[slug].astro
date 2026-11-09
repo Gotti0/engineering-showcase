@@ -12,16 +12,19 @@ const slug = Astro.params.slug!;
 const doc = getCase(slug);
 if (!doc) throw new Error(`Unknown case: ${slug}`);
 const diagrams = caseDiagrams[slug] ?? [];
-const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title={`${doc.title} · Engineering Showcase`} description={doc.excerpt}>
-  <section class="section" style="padding-top: var(--hero-pad);">
-    <div class="meta-row" style="margin-top: 0;">
-      <a href={`${base}cases/`} data-public-only>← 사례 목록</a>
-      <a href={`${base}evidence/`}>근거</a>
-    </div>
-    <p class="notice" style="margin-top: 1.25rem;">{BOUNDARY_NOTICE}</p>
-    <article class="prose" set:html={doc.html} />
-    <MermaidDiagrams diagrams={diagrams} />
-  </section>
+<BaseLayout title={`${doc.title} · Engineering Showcase`} description={doc.excerpt} slideDeck={true}>
+  <div class="deck">
+    <section class="slide">
+      <header class="slide-header">
+        <div>
+          <p class="slide-kicker">Case</p>
+          <h2>{doc.title}</h2>
+        </div>
+      </header>
+      <p class="notice slide-notice">{BOUNDARY_NOTICE}</p>
+      <article class="prose" set:html={doc.html} />
+      <MermaidDiagrams diagrams={diagrams} />
+    </section>
+  </div>
 </BaseLayout>
