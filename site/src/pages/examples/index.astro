@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getExamples, BOUNDARY_NOTICE } from '../../lib/content';
+
+const doc = getExamples();
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="실행 예제 · Engineering Showcase">
+  <section class="section" style="padding-top: var(--hero-pad);">
+    <p class="notice">{BOUNDARY_NOTICE}</p>
+    <article class="prose" set:html={doc.html} />
+    <p class="meta-row">
+      <a href="https://github.com/Gotti0/engineering-showcase/tree/main/examples">GitHub에서 examples 보기</a>
+      <a href={`${base}evidence/`}>근거 목록</a>
+    </p>
+  </section>
+</BaseLayout>

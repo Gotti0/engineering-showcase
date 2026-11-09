@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getEvidence, BOUNDARY_NOTICE } from '../../lib/content';
+
+const doc = getEvidence();
+---
+<BaseLayout title="근거와 한계 · Engineering Showcase" description={BOUNDARY_NOTICE}>
+  <section class="section" style="padding-top: var(--hero-pad);">
+    <p class="notice">{BOUNDARY_NOTICE}</p>
+    <article class="prose" set:html={doc.html} />
+  </section>
+</BaseLayout>

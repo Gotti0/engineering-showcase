@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { audiences, getAudience } from '../../data/audiences';
+import { getCase, BOUNDARY_NOTICE } from '../../lib/content';
+
+export function getStaticPaths() {
+  return audiences.map((a) => ({ params: { slug: a.slug } }));
+}
+
+const { slug } = Astro.params;
+const audience = getAudience(slug!);
+if (!audience) {
+  throw new Error(`Unknown audience: ${slug}`);
+}
+
+const cases = audience.caseSlugs.map((s) => getCase(s)).filter(Boolean);
+const base = import.meta.env.BASE_URL;
+const title = `${audience.role} — ${audience.company}`;
+---
+<BaseLayout title={`${title} · Engineering Showcase`} description={audience.blurb}>
+  <section class="hero" style="padding-bottom: 1.5rem;">
+    <p class="hero-brand">3분 읽기 경로</p>
+    <h1 style="max-width: 18ch; font-size: clamp(2rem, 5vw, 3.2rem);">{title}</h1>
+    <p class="hero-lead">{audience.blurb}</p>
+    <div class="meta-row">
+      <a href={base}>← 모든 경로</a>
+      <a href={`${base}evidence/`}>근거와 한계</a>
+      <a href={`${base}examples/`}>실행 예제</a>
+    </div>
+  </section>
+
+  <p class="notice">{BOUNDARY_NOTICE}</p>
+
+  <section class="section" style="padding-top: 0;">
+    <h2>이 순서로 읽기</h2>
+    <ol class="path-steps">
+      {
+        cases.map((c) => (
+          <li>
+            <div>
+              <a href={`${base}cases/${c!.slug}/`}>
+                <div class="path-title">{c!.title}</div>
+                <p class="path-excerpt">{c!.excerpt}</p>
+              </a>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="section-lead" style="margin-top: 2rem;">
+      지원 자료의 읽기 안내이며 {audience.company}에 소속되거나 기업의 승인을 받은 자료가 아닙니다.
+    </p>
+  </section>
+</BaseLayout>
+

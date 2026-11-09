@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { audiences } from '../data/audiences';
+import { BOUNDARY_NOTICE } from '../lib/content';
+
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="Engineering Showcase — Gotti0">
+  <section class="hero">
+    <p class="hero-brand">Engineering Showcase · Gotti0</p>
+    <h1>문제를 분리하고 검증으로 막는 엔지니어</h1>
+    <p class="hero-lead">
+      LLM 문서 처리, 금융 데이터 검증, 주문 상태 관리, AI 개발 협업 사례를
+      직무별로 3분 안에 따라 읽을 수 있게 정리했습니다.
+    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#personas">직무 경로 고르기</a>
+      <a class="btn btn-ghost" href={`${base}evidence/`}>근거와 한계</a>
+    </div>
+  </section>
+
+  <p class="notice">{BOUNDARY_NOTICE}</p>
+
+  <section class="section" id="personas">
+    <h2>3분 읽기 경로</h2>
+    <p class="section-lead">
+      지원 직무에 맞는 순서로 사례를 엽니다. 기업명 표기는 읽기 안내일 뿐, 소속·승인을 뜻하지 않습니다.
+    </p>
+    <ul class="persona-list">
+      {
+        audiences.map((a) => (
+          <li>
+            <a href={`${base}for/${a.slug}/`}>
+              <span class="persona-role">{a.role}</span>
+              <span class="persona-blurb">
+                <span class="persona-company">{a.company}</span>
+                {' — '}
+                {a.blurb}
+              </span>
+              <span class="persona-go">경로 열기 →</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
