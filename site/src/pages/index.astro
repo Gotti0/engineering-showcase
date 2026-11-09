@@ -1,22 +1,138 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BOUNDARY_NOTICE } from '../lib/content';
+import {
+  profile,
+  competencies,
+  background,
+  stackGroups,
+  projectBridges,
+  closing,
+} from '../data/narrative';
 
 const base = import.meta.env.BASE_URL;
+const photoSrc = `${base}${profile.photo}`;
 ---
-<BaseLayout title="Engineering Showcase — Gotti0">
+<BaseLayout title="Engineering Showcase — 이현우">
   <section class="hero">
-    <p class="hero-brand">Engineering Showcase · Gotti0</p>
+    <p class="hero-brand">Engineering Showcase · {profile.name}</p>
     <h1>문제를 분리하고 검증으로 막는 엔지니어</h1>
     <p class="hero-lead">
-      LLM 문서 처리, 금융 데이터 검증, 주문 상태 관리, AI 개발 협업 사례를
-      공개 가능한 근거와 합성 예제와 함께 정리했습니다.
+      데이터 무결성과 시스템 안정성을 우선합니다. LLM 문서 처리, 금융 데이터 검증,
+      주문 상태 관리, AI 개발 협업 사례를 공개 가능한 근거와 합성 예제와 함께 정리했습니다.
     </p>
     <div class="hero-actions">
-      <a class="btn" href={`${base}cases/`}>사례 보기</a>
-      <a class="btn btn-ghost" href={`${base}evidence/`}>근거와 한계</a>
+      <a class="btn" href="#about">소개 읽기</a>
+      <a class="btn btn-ghost" href={`${base}cases/`}>사례 보기</a>
     </div>
   </section>
 
   <p class="notice">{BOUNDARY_NOTICE}</p>
+
+  <section class="section" id="about">
+    <p class="section-kicker">Profile</p>
+    <h2>경험과 무결성을 기준으로 성장하는 퀀트·시스템 엔지니어입니다.</h2>
+    <div class="about-grid">
+      <aside class="about-identity">
+        <img class="about-photo" src={photoSrc} alt={`${profile.name} 프로필`} width="480" height="640" />
+        <p class="about-name">
+          <strong>{profile.name}</strong>
+          <span>{profile.nameEn}</span>
+        </p>
+        <p class="about-role">{profile.role}</p>
+        <ul class="contact-list">
+          <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+          <li><a href={profile.github}>{profile.github.replace('https://', '')}</a></li>
+          <li>{profile.educationLine}</li>
+          <li>{profile.trainingLine}</li>
+        </ul>
+      </aside>
+      <div>
+        <h3 class="block-title">핵심 역량</h3>
+        <ul class="comp-list">
+          {
+            competencies.map((c) => (
+              <li>
+                <strong>{c.title}</strong>
+                <p>{c.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="background">
+    <p class="section-kicker">Background</p>
+    <h2>학습과 검증 기록을 쌓아 온 이력입니다.</h2>
+    <div class="bg-grid">
+      {
+        background.map((b) => (
+          <div class="bg-block">
+            <h3 class="block-title">{b.title}</h3>
+            <ul class="plain-list">
+              {b.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section" id="stack">
+    <p class="section-kicker">Technical Inventory</p>
+    <h2>금융 도메인과 시스템 밑바닥을 지탱하는 스택입니다.</h2>
+    <div class="stack-grid">
+      {
+        stackGroups.map((g) => (
+          <div class="stack-block">
+            <h3 class="block-title">{g.title}</h3>
+            <ul class="plain-list">
+              {g.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <p class="section-kicker">Projects → Cases</p>
+    <h2>프로젝트 경험은 공개 사례로 읽어 주세요.</h2>
+    <p class="section-lead">
+      원본 시스템을 통째로 옮기지 않았습니다. 문제를 어떻게 분리·검증했는지는 아래 공개 사례와
+      <a href={`${base}evidence/`}>근거 목록</a>을 기준으로 확인합니다.
+    </p>
+    <ul class="bridge-list">
+      {
+        projectBridges.map((p) => (
+          <li>
+            <a href={`${base}cases/${p.caseSlug}/`}>
+              <span class="bridge-project">{p.project}</span>
+              <span class="bridge-focus">{p.focus}</span>
+              <span class="bridge-case">사례: {p.caseLabel} →</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section closing" id="closing">
+    <p class="section-kicker">Closing</p>
+    <h2>{closing.headline}</h2>
+    <ul class="plain-list closing-points">
+      {closing.points.map((p) => <li>{p}</li>)}
+    </ul>
+    <div class="hero-actions" style="margin-top: 1.5rem;">
+      <a class="btn" href={`${base}cases/`}>공개 사례</a>
+      <a class="btn btn-ghost" href={`${base}evidence/`}>근거와 한계</a>
+      <a class="btn btn-ghost" href={`mailto:${profile.email}`}>이메일</a>
+    </div>
+  </section>
 </BaseLayout>
