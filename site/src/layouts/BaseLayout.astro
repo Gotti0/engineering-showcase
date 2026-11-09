@@ -5,17 +5,20 @@ interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
+  /** 회사 공유 경로: 브랜드·전역 내비로 공개 홈/목록에 나가지 않음 */
+  isolate?: boolean;
 }
 
 const {
   title,
   description = '문제를 분리하고 검증으로 막는 엔지니어 — 공개 엔지니어링 사례와 검증 근거.',
   noindex = false,
+  isolate = false,
 } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-isolate={isolate ? '1' : undefined}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,22 +35,71 @@ const base = import.meta.env.BASE_URL;
   <body>
     <div class="shell">
       <header class="site-header">
-        <a class="brand" href={base}>Engineering Showcase</a>
-        <nav class="nav" aria-label="주요">
-          <a href={`${base}cases/`}>사례</a>
-          <a href={`${base}evidence/`}>근거</a>
-          <a href={`${base}examples/`}>예제</a>
-        </nav>
+        {
+          isolate ? (
+            <span class="brand">Engineering Showcase</span>
+          ) : (
+            <a class="brand" href={base}>Engineering Showcase</a>
+          )
+        }
+        {
+          !isolate && (
+            <nav class="nav" aria-label="주요" data-public-nav>
+              <a href={`${base}cases/`}>사례</a>
+              <a href={`${base}evidence/`}>근거</a>
+              <a href={`${base}examples/`}>예제</a>
+            </nav>
+          )
+        }
       </header>
       <slot />
-      <footer class="site-footer">
-        <p>
-          Gotti0 ·
-          <a href="https://github.com/Gotti0/engineering-showcase">GitHub</a>
-          · 공개 경계와 합성 예제 한계는
-          <a href={`${base}evidence/`}>근거 목록</a>을 따릅니다.
-        </p>
+      <footer class="site-footer" data-site-footer>
+        {
+          isolate ? (
+            <p>Gotti0 · 공개 경계와 합성 예제 한계는 이 경로의 근거·예제 링크를 따릅니다.</p>
+          ) : (
+            <p>
+              Gotti0 ·
+              <a href="https://github.com/Gotti0/engineering-showcase">GitHub</a>
+              · 공개 경계와 합성 예제 한계는
+              <a href={`${base}evidence/`}>근거 목록</a>을 따릅니다.
+            </p>
+          )
+        }
       </footer>
     </div>
+    <script is:inline>
+      (function () {
+        var KEY = 'es-isolate';
+        if (document.documentElement.getAttribute('data-isolate') === '1') {
+          try {
+            sessionStorage.setItem(KEY, '1');
+          } catch (e) {}
+        }
+        var on = false;
+        try {
+          on = sessionStorage.getItem(KEY) === '1';
+        } catch (e) {}
+        if (!on) return;
+
+        var brand = document.querySelector('a.brand');
+        if (brand) {
+          var span = document.createElement('span');
+          span.className = 'brand';
+          span.textContent = brand.textContent;
+          brand.replaceWith(span);
+        }
+        var nav = document.querySelector('[data-public-nav]');
+        if (nav) nav.remove();
+        document.querySelectorAll('[data-public-only]').forEach(function (el) {
+          el.remove();
+        });
+        var foot = document.querySelector('[data-site-footer]');
+        if (foot && !document.documentElement.getAttribute('data-isolate')) {
+          foot.innerHTML =
+            '<p>Gotti0 · 공개 경계와 합성 예제 한계는 이 경로의 근거·예제 링크를 따릅니다.</p>';
+        }
+      })();
+    </script>
   </body>
 </html>

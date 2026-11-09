@@ -89,6 +89,10 @@ img {
   text-decoration: none;
 }
 
+span.brand {
+  cursor: default;
+}
+
 .nav {
   display: flex;
   flex-wrap: wrap;

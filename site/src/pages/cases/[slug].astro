@@ -13,8 +13,7 @@ const base = import.meta.env.BASE_URL;
 <BaseLayout title={`${doc.title} · Engineering Showcase`} description={doc.excerpt}>
   <section class="section" style="padding-top: var(--hero-pad);">
     <div class="meta-row" style="margin-top: 0;">
-      <a href={`${base}cases/`}>← 사례 목록</a>
-      <a href={`${base}#personas`}>직무 경로</a>
+      <a href={`${base}cases/`} data-public-only>← 사례 목록</a>
       <a href={`${base}evidence/`}>근거</a>
     </div>
     <p class="notice" style="margin-top: 1.25rem;">{BOUNDARY_NOTICE}</p>
